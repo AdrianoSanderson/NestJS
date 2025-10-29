@@ -1,4 +1,5 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Param } from "@nestjs/common";
+import { log } from "console";
 
 @Controller('messages')
 export class MessagesController{
@@ -8,7 +9,9 @@ export class MessagesController{
     }
 
     @Get(':id')
-    findOne(){
-        return 'Retorna um recado'
+    findOne(@Param('id') id: any){
+        console.log(id);
+        
+        return `Retorna um recado do id: ${id}`
     }
 }
