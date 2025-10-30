@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from "@nestjs/common";
+import { Controller, Get, Param, Post } from "@nestjs/common";
 import { log } from "console";
 
 @Controller('messages')
@@ -13,5 +13,10 @@ export class MessagesController{
         console.log(id);
         
         return `Retorna um recado do id: ${id}`
+    }
+
+    @Post()
+    create(){
+        return 'Essa rota cria um recado'
     }
 }
