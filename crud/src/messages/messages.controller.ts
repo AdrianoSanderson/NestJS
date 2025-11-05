@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from "@nestjs/common";
 import { log } from "console";
 
 @Controller('messages')
@@ -20,5 +20,18 @@ export class MessagesController{
     @Post()
     create(@Body() response: any){
         return response
+    }
+
+    @Patch(':id')
+    update(@Param('id') id: string, @Body() response: any){
+        return{
+            id,
+            ...Body
+        }
+    }
+
+    @Delete(':id')
+    remove(@Param('id') id: string){
+        return `Essa rota apaga o id: ${id}`
     }
 }
