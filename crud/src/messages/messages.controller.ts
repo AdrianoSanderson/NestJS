@@ -1,19 +1,19 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from "@nestjs/common";
-import { log } from "console";
+import { RecadosService } from "./messages.service";
 
 @Controller('messages')
 export class MessagesController{
+    constructor(private readonly recadosService: RecadosService){}
+    
     @HttpCode(200)
     @Get()
     findAll(){
-        return 'Essa rota retorna todos os recados!'
+        return this.recadosService.findAll();
     }
 
     @Get(':id')
-    findOne(@Param('id') id: any){
-        console.log(id);
-        
-        return `Retorna um recado do id: ${id}`
+    findOne(@Param('id') id: any){        
+        return this.recadosService.findOne(id);
     }
 
     @HttpCode(HttpStatus.CREATED)
