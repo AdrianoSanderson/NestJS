@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { Message } from "./entities/message.entity";
+import { CreateMessageDTO } from "./dto/create-message.dto";
 
 @Injectable()
 export class RecadosService {
@@ -25,5 +26,19 @@ export class RecadosService {
         if(recado) return recado;
 
         throw new HttpException('Recado não encontrado', HttpStatus.NOT_FOUND);
+    }
+
+    create(createMessageDTO: CreateMessageDTO){
+        this.lastID++;
+        const id = this.lastID;
+        const newMessage = {
+            id,
+            ...createMessageDTO,
+            lido: false,
+            data: new Date()
+        };
+        this.messages.push(newMessage);
+        
+        return newMessage;
     }
 }

@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from "@nestjs/common";
 import { RecadosService } from "./messages.service";
+import { CreateMessageDTO } from "./dto/create-message.dto";
 
 @Controller('messages')
 export class MessagesController{
@@ -18,8 +19,8 @@ export class MessagesController{
 
     @HttpCode(HttpStatus.CREATED)
     @Post()
-    create(@Body() response: any){
-        return response
+    create(@Body() createMessageDTO: CreateMessageDTO){
+        return this.recadosService.create(createMessageDTO)
     }
 
     @Patch(':id')
