@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Patch, Post } from "@nestjs/common";
 import { RecadosService } from "./messages.service";
 import { CreateMessageDTO } from "./dto/create-message.dto";
 
@@ -32,7 +32,7 @@ export class MessagesController{
     }
 
     @Delete(':id')
-    remove(@Param('id') id: string){
+    remove(@Param('id', ParseIntPipe) id: number){
         return `Essa rota apaga o id: ${id}`
     }
 }
