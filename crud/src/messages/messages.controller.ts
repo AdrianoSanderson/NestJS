@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Patch, Post } from "@nestjs/common";
 import { RecadosService } from "./messages.service";
 import { CreateMessageDTO } from "./dto/create-message.dto";
+import { updateMessageDto } from "./dto/update-message.dto";
 
 @Controller('messages')
 export class MessagesController{
@@ -13,7 +14,7 @@ export class MessagesController{
     }
 
     @Get(':id')
-    findOne(@Param('id') id: any){        
+    findOne(@Param('id', ParseIntPipe) id: number){        
         return this.recadosService.findOne(id);
     }
 
@@ -24,15 +25,12 @@ export class MessagesController{
     }
 
     @Patch(':id')
-    update(@Param('id') id: string, @Body() response: any){
-        return{
-            id,
-            ...Body
-        }
+    update(@Param('id', ParseIntPipe) id: number, @Body() response: updateMessageDto){
+        return this.recadosService.update(id, response)
     }
 
     @Delete(':id')
     remove(@Param('id', ParseIntPipe) id: number){
-        return `Essa rota apaga o id: ${id}`
+        return this.recadosService.delete(id)
     }
 }
